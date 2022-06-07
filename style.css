@@ -195,11 +195,6 @@ header {
     background: var(--color-primary-white);
 }
 
-.work-sectwo {
-    padding: 1rem 0;
-    background: var(--color-primary-white);
-}
-
 .work-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
