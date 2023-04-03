@@ -73,7 +73,7 @@ githubFooter.addEventListener(`click`, async () => {
 });
 
 async function fetchApi (body,date){
-    const response = await fetch("https://cawaproject.site/api/add-count", { //http://192.168.0.19 https://api-web-portofolio.vercel.app
+    const response = await fetch("https://api-web-portofolio.vercel.app", { //http://192.168.0.19 https://api-web-portofolio.vercel.app
         method: 'POST',
         headers: {
           'Accept': 'application/json',
