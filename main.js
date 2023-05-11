@@ -71,7 +71,7 @@ waFooter.addEventListener(`click`, async () => {
 githubFooter.addEventListener(`click`, async () => {
     fetchApi("clickGithubFooter",new Date);
 });
-//tes
+//tes lagi
 async function fetchApi (body,date){
     const response = await fetch("https://api-web-portofolio.vercel.app/add-count", { //http://192.168.0.19 https://api-web-portofolio.vercel.app
         method: 'POST',
