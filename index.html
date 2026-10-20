@@ -1,184 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fahron</title>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,900&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fahron Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: grid kaku bergaris 2px, blok hitam-putih bergantian, nol radius */
+:root {
+  --ink: #0a0a0a;
+  --paper: #ffffff;
+  --mute: #5c5c5c;
+  --line: #0a0a0a;
+  --soft: #f0f0f0;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; border-radius: 0 !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--mono); font-size: 15px; line-height: 1.6; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* NAV */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 2px solid var(--line); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { font-family: var(--display); font-weight: 900; font-size: 18px; letter-spacing: -0.02em; text-decoration: none; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+.logo .box { width: 18px; height: 18px; background: var(--ink); display: inline-block; }
+.navlinks { display: flex; gap: 22px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
+.navlinks a { text-decoration: none; }
+.navlinks a:hover, .navlinks a:focus-visible { text-decoration: underline; text-underline-offset: 4px; outline: none; }
+@media (max-width: 620px) { .navlinks a:not(.cta-mini) { display: none; } }
+
+/* HERO */
+.hero { border-bottom: 2px solid var(--line); }
+.hero .wrap { display: grid; grid-template-columns: 1.25fr 1fr; }
+.hero-copy { padding-block: 64px; padding-right: 40px; border-right: 2px solid var(--line); min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { align-self: flex-start; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; border: 2px solid var(--line); padding: 4px 10px; margin-bottom: 28px; display: inline-flex; align-items: center; gap: 8px; }
+.eyebrow .live { width: 8px; height: 8px; background: var(--ink); animation: blink 1.2s steps(1) infinite; }
+h1 { font-family: var(--display); font-weight: 900; font-size: clamp(44px, 7.4vw, 92px); line-height: 0.9; letter-spacing: -0.045em; margin: 0 0 24px; text-transform: uppercase; text-wrap: balance; }
+h1 .inv { background: var(--ink); color: var(--paper); padding: 0 10px; }
+.lede { max-width: 46ch; color: var(--mute); margin: 0 0 32px; }
+.btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { font-family: var(--mono); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; padding: 14px 22px; border: 2px solid var(--line); text-decoration: none; display: inline-block; background: var(--paper); color: var(--ink); transition: transform .12s, box-shadow .12s; }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn:hover, .btn:focus-visible { transform: translate(-3px, -3px); box-shadow: 3px 3px 0 var(--ink); outline: none; }
+
+.hero-photo { padding: 40px 0 40px 40px; display: flex; align-items: center; min-width: 0; }
+.photo-frame { width: 100%; border: 2px solid var(--line); box-shadow: 10px 10px 0 var(--ink); background: var(--ink); position: relative; }
+.photo-frame img { width: 100%; aspect-ratio: 307 / 322; object-fit: cover; filter: grayscale(1) contrast(1.08); }
+.photo-cap { display: flex; justify-content: space-between; gap: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; border-top: 2px solid var(--paper); }
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero-copy { border-right: 0; border-bottom: 2px solid var(--line); padding-right: 0; padding-block: 48px; }
+  .hero-photo { padding: 32px 10px 44px 0; }
+  .photo-frame { max-width: 420px; }
+}
+
+/* TICKER */
+.ticker { background: var(--ink); color: var(--paper); border-bottom: 2px solid var(--line); overflow: hidden; }
+.ticker-track { display: flex; gap: 40px; white-space: nowrap; padding-block: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 13px; animation: slide 34s linear infinite; width: max-content; }
+@keyframes slide { to { transform: translateX(-50%); } }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* SECTIONS */
+section.block { border-bottom: 2px solid var(--line); }
+section.block .wrap { padding-block: 72px; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+h2 { font-family: var(--display); font-weight: 900; font-size: clamp(32px, 4.8vw, 56px); line-height: 0.95; letter-spacing: -0.035em; margin: 0; text-transform: uppercase; text-wrap: balance; }
+.sec-head p { max-width: 42ch; color: var(--mute); margin: 0; }
+.inverse { background: var(--ink); color: var(--paper); }
+.inverse .sec-head p { color: #bdbdbd; }
+
+/* ABOUT */
+.about { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--paper); border-left: 2px solid var(--paper); }
+.about > div { border-right: 2px solid var(--paper); border-bottom: 2px solid var(--paper); padding: 26px; min-width: 0; }
+.about .k { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #bdbdbd; }
+.about .v { font-family: var(--display); font-weight: 900; font-size: clamp(34px, 4.5vw, 52px); line-height: 1; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.about .s { font-size: 13px; color: #bdbdbd; margin-top: 6px; }
+.about-text { grid-column: 1 / -1; font-size: clamp(17px, 2vw, 21px); line-height: 1.55; }
+.about-text p { margin: 0; max-width: 60ch; }
+@media (max-width: 700px) { .about { grid-template-columns: 1fr; } }
+
+/* PROJECTS */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--line); border-left: 2px solid var(--line); }
+.card { border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); display: flex; flex-direction: column; min-width: 0; background: var(--paper); }
+.card .shot { background: var(--soft); border-bottom: 2px solid var(--line); padding: 20px; display: flex; justify-content: center; position: relative; overflow: hidden; }
+.card .shot::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.06; }
+.card .shot img { position: relative; width: 78%; aspect-ratio: 400 / 417; object-fit: contain; filter: grayscale(1) contrast(1.05); transition: filter .25s, transform .25s; }
+.card:hover .shot img, .card:focus-within .shot img { filter: grayscale(0); transform: translateY(-4px); }
+.card .idx { position: absolute; top: 0; left: 0; background: var(--ink); color: var(--paper); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 4px 8px; z-index: 1; }
+.card .body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card h3 { font-family: var(--display); font-weight: 800; font-size: 24px; margin: 0; letter-spacing: -0.02em; }
+.card p { margin: 0; font-size: 14px; color: var(--mute); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+.tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--line); padding: 2px 8px; }
+.tag.solid { background: var(--ink); color: var(--paper); }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+
+/* EXPERIENCE */
+.xp { border-top: 2px solid var(--line); }
+.xp-row { display: grid; grid-template-columns: 170px 1fr auto; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 2px solid var(--line); transition: background .15s, color .15s, padding .15s; }
+.xp-row:hover { background: var(--ink); color: var(--paper); padding-inline: 16px; }
+.xp-row:hover .where, .xp-row:hover .yr { color: #bdbdbd; }
+.yr { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.role { font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.4vw, 26px); letter-spacing: -0.02em; line-height: 1.15; }
+.where { font-size: 14px; color: var(--mute); margin-top: 4px; }
+.badge { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid currentColor; padding: 2px 8px; white-space: nowrap; }
+@media (max-width: 680px) {
+  .xp-row { grid-template-columns: 1fr; gap: 6px; }
+  .badge { justify-self: start; margin-top: 6px; }
+}
+
+/* CONTACT */
+.contact { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 2px solid var(--paper); border-left: 2px solid var(--paper); }
+.c-item { border-right: 2px solid var(--paper); border-bottom: 2px solid var(--paper); padding: 24px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.c-item .k { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: #bdbdbd; }
+.c-item .v { font-family: var(--display); font-weight: 800; font-size: clamp(18px, 2.4vw, 26px); overflow-wrap: anywhere; user-select: all; }
+.c-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.c-btn { font-family: var(--mono); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; border: 2px solid var(--paper); background: var(--ink); color: var(--paper); padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+.c-btn:hover, .c-btn:focus-visible { background: var(--paper); color: var(--ink); outline: none; }
+@media (max-width: 640px) { .contact { grid-template-columns: 1fr; } }
+
+.bigword { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 15vw, 190px); line-height: 0.85; letter-spacing: -0.05em; text-transform: uppercase; border-bottom: 2px solid var(--line); overflow: hidden; }
+.bigword .wrap { padding-block: 24px 8px; }
+footer .wrap { padding-block: 32px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track, .eyebrow .live { animation: none; }
+  .btn, .card .shot img, .xp-row { transition: none; }
+}
+</style>
 
 </head>
 <body>
-    <!-- navbar -->
-    <nav>
-        <div class="container nav-container">
-            <a href="index.html">
-                <h4>Fahron.</h4>
-            </a>
-            <ul class="nav-menu">
-                <li> <a href="#about">About me</a></li>
-                <li> <a href="#work">Portofolio</a></li>
-                <li> <a href="#experience">Experince</a></li>
-                <li> <a href="#contact">Contact</a></li>
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="box"></span>Fahron</a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact" class="cta-mini">Contact →</a>
+    </div>
+  </div>
+</nav>
 
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="live"></span>Open to collaborate</span>
+      <h1>Hi, I'm <span class="inv">Fahron.</span></h1>
+      <p class="lede">Software engineer from Indonesia. I build enterprise and mobile apps, mostly with Flutter, for mining, banking, pharma and consumer products.</p>
+      <div class="btns">
+        <a class="btn solid" href="#portfolio">See my work</a>
+        <a class="btn" href="#contact">Let's collaborate</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <figure class="photo-frame" style="margin:0">
+        <img src="images/aboutme.png" alt="Portrait of Fahron in a black t-shirt, arms crossed">
+        <figcaption class="photo-cap"><span>Fahron</span><span>Software Engineer</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
 
-            </ul>
-            <button id="open-menu-button">
-                <i class="uil uil-bars"></i>
-            </button>
-            <button id="close-menu-button">
-                <i class="uil uil-multiply"></i>
-            </button>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Flutter</span><span>■</span><span>Mobile Apps</span><span>■</span><span>Enterprise Systems</span><span>■</span><span>UI/UX</span><span>■</span><span>Offline-first</span><span>■</span><span>Presales</span><span>■</span>
+    <span>Flutter</span><span>■</span><span>Mobile Apps</span><span>■</span><span>Enterprise Systems</span><span>■</span><span>UI/UX</span><span>■</span><span>Offline-first</span><span>■</span><span>Presales</span><span>■</span>
+  </div>
+</div>
+
+<section class="block inverse" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>About<br>me</h2>
+      <p>A short version of who I am and how long I've been shipping.</p>
+    </div>
+    <div class="about">
+      <div class="about-text"><p>I'm a software engineer who enjoys learning new things. I'm familiar with several frameworks and have built multiple enterprise applications, from field apps that keep working on remote mining sites to internal tools for large corporate teams.</p></div>
+      <div><div class="k">Since</div><div class="v">2019</div><div class="s">Writing production code</div></div>
+      <div><div class="k">Companies</div><div class="v">5</div><div class="s">Across consulting &amp; product</div></div>
+      <div><div class="k">Projects</div><div class="v">6</div><div class="s">Featured below</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="portfolio">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Selected<br>work</h2>
+      <p>Apps I've built for clients and employers. Hover a card to bring it back to color.</p>
+    </div>
+    <div class="grid">
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">PT BUKIT ASAM</span><img src="images/cisea.png" alt="Cisea app screens on two phones"></div>
+        <div class="body">
+          <h3>Cisea</h3>
+          <p>Employee information app for PT Bukit Asam. Digital data entry, live reporting, and offline processing for mining sites with unreliable networks.</p>
+          <div class="tags"><span class="tag solid">Flutter</span><span class="tag">Offline-first</span><span class="tag">Enterprise</span></div>
         </div>
-    </nav>
-    <!-- header -->
-    <header>
-        <div class="container header-container">
-            <div data-aos-duration="1500" data-aos="fade-right" class="header-left">
-                <h1>Hey! I am Fahron, Software Engineer</h1>
-                <p>Let’s collaborate with me</p>
-                <div data-aos="fade-left" class="header-icon">
-                    <a id="github-hero" href="https://github.com/fahronona" target="_blank" rel="noopener noreferrer"><i class="uil uil-github"></i></a>
-                    <a id="linkedin-hero" href="https://www.linkedin.com/in/fahron-1b8a48187/" target="_blank" rel="noopener noreferrer"><i class="uil uil-linkedin"></i>
-                   </div></a>
-
-                </div>
-                <div data-aos-duration="1500" data-aos="zoom-in" class="header-right">
-                    <div class="header-right-image">
-                        <img class="header-img" src="./images/header.svg">
-                    </div>
-
-                </div>
-            </div>
-    </header>
-    <!-- about -->
-    <section id="about" class="about">
-        <div class="container about-container">
-            <div data-aos-duration="1500" data-aos="fade-right" class="about-left">
-                <h1 class="about-h1">About me</h1>
-                <p>I am Software Engineer with a strong passion for learning new things. I am familiar with several frameworks , and I have developed several enterprise applications.</p>
-            </div>
-            <div data-aos-duration="1500" data-aos="flip-up" class="about-right">
-                <div class="about-right-image">
-                    <img class="about-img" src="./images/aboutme.png">
-                </div>
-
-            </div>
+      </article>
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">MAIMAID.ID</span><img src="images/maimaid.png" alt="Maimaid app screens on two phones"></div>
+        <div class="body">
+          <h3>Maimaid</h3>
+          <p>Online platform for hiring professional domestic workers in Indonesia: household assistants, babysitters, drivers and butlers.</p>
+          <div class="tags"><span class="tag solid">Flutter</span><span class="tag">Marketplace</span></div>
         </div>
-
+      </article>
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">HEALTH</span><img src="images/spensia.png" alt="Spensia app screens on two phones"></div>
+        <div class="body">
+          <h3>Spensia</h3>
+          <p>Survey-style screening app to identify elderly people who may be experiencing violence or neglect.</p>
+          <div class="tags"><span class="tag solid">Mobile</span><span class="tag">Survey</span></div>
         </div>
-    </section>
-
-    <!-- work -->
-    <section id="work" class=" work">
-        <h1 data-aos-duration="1500" data-aos="fade-right" class="work-title">Portofolio</h1>
-        <div class="container work-container">
-
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>Cisea</h4>
-                <img class="card-image" src="./images/cisea.png">
-                <p class="work-p" align="justify">Cisea is an application created to support the activities of PT Bukit Asam employees and provide employee information. The main features in CISEA include: digital data input, live data reports, and offline data processing carried out in
-                    mining areas which are often constrained by networks.</p>
-            </article>
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>Maimaid</h4>
-                <img class="card-image" src="./images/maimaid.png">
-                <p class="work-p" align="justify">The first online professional domestic worker search application in Indonesia. Based on an online application, Maimaid.id provides types of Domestic Worker services, such as Household Assistants (ART), Baby Siters, Drivers and Butlers
-                    (Head Waiters) who are professional, reliable and trustworthy.</p>
-            </article>
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>Spensia</h4>
-                <img class="card-image" src="./images/spensia.png">
-                <p class="work-p" align="justify">Spensia is an application used to screen elderly people who experience violence or neglect. This application is shaped like a survey, from the survey we can find out the status of the application user who has been ignored or not</p>
-            </article>
-
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>Silampari Smart City </h4>
-                <img class="card-image" src="./images/silampari.png">
-                <p class="work-p" align="justify">Redesing the UI / UX of the Silampari Smart City application is a personal project that I made as a learning process and also the process of deepening UI/UX knowledge besides that it also provides other options for the Silampari Smart
-                    City application UI which I hope can inspire ideas in the development of the Silampari Smart City application for better future.</p>
-            </article>
-
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>PP Mobile</h4>
-
-                <img class="card-image" src="./images/ppm.png">
-                <p class="work-p" align="justify">PP Mobile application is a support application for Dexa group employees in reviewing event expenses.</p>
-            </article>
-
-            <article data-aos-duration="1500" data-aos="flip-right" class="card-work">
-                <h4>Infostep</h4>
-                <img class="card-image" src="./images/infostep.png">
-                <p class="work-p" align="justify">Infostep is a support application for Dexa group employees as an application to review marketing activities on Dexa group products.</p>
-            </article>
-
+      </article>
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">PERSONAL</span><img src="images/silampari.png" alt="Silampari Smart City redesign screens"></div>
+        <div class="body">
+          <h3>Silampari Smart City</h3>
+          <p>Personal UI/UX redesign of the Silampari Smart City app, exploring alternative interface ideas as a learning exercise.</p>
+          <div class="tags"><span class="tag solid">UI/UX</span><span class="tag">Redesign</span></div>
         </div>
-
-    </section>
-
-
-    <!-- experience -->
-    <section id="experience" class="experience">
-        <div class="container experience-container">
-            <div>
-                <h1 data-aos-duration="1500" data-aos="fade-right">Experience</h1>
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2023-Present PT MSBU Konsultan Indonesia</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Software Engineer</p>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Placement at Lembaga Penjamin Simpanan</p>
-            </div>
-            <div>
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2023-2023 (7 Month) PT. Indopoleon Technology</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Presales Engineer</p>
-            </div>
-            <div>
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2022-2023 PT. Mitra Integrasi Informatika</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Software Engineer</p>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Placement at PT Dexa Medica</p>
-            </div>
-            <div>
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2021-2022 Maimaid.id</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Mobile Developer Flutter</p>
-            </div>
-            <div>
-
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2019-2021 PT.Qtasnim Digital Teknologi</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Mobile Developer Flutter</p>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Placement at PT.Bukit Asam Tbk.</p>
-            </div>
-<!--             <div>
-
-                <h4 data-aos-duration="1500" data-aos="fade-right" class="h4-experience">2018-2019 Comnets Sriwijaya University</h4>
-                <p data-aos-duration="1500" data-aos="fade-left" class="p-experience">Graphic Designer</p>
-            </div> -->
-
+      </article>
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">DEXA GROUP</span><img src="images/ppm.png" alt="PP Mobile app screens on two phones"></div>
+        <div class="body">
+          <h3>PP Mobile</h3>
+          <p>Internal app for Dexa Group employees to review event expenses.</p>
+          <div class="tags"><span class="tag solid">Mobile</span><span class="tag">Internal tool</span></div>
         </div>
-
-    </section>
-
-    <section id="contact">
-        <div class="contact-container">
-            <h1>Get in touch.</h1>
-            <div data-aos-duration="1500" data-aos="fade-up" class="contact-icon">
-                <a id="github-footer" href="https://github.com/fahronona" target="_blank" rel="noopener noreferrer"><i class="uil uil-github"></i></a>
-                <a id="wa-footer" href="https://wa.me/081296199310" target="_blank" rel="noopener noreferrer"><i class="uil uil-whatsapp"></i></i></a>
-                <a id="email-footer" href="mailto:fahrononasutra@gmail.com?subject=Subject&body=message%20goes%20here" target="_blank" rel="noopener noreferrer"><i class="uil uil-envelope"></i></a>
-                <a id="linkedin-footer" href="https://www.linkedin.com/in/fahron-1b8a48187/" target="_blank" rel="noopener noreferrer"><i class="uil uil-linkedin"></i>
-               </a> </div>
-            <p class="p-contact">Designed & Build by Fahron</p>
-            <p>Copyright &#169 2022</p>
+      </article>
+      <article class="card" tabindex="0">
+        <div class="shot"><span class="idx">DEXA GROUP</span><img src="images/infostep.png" alt="Infostep app screens on two phones"></div>
+        <div class="body">
+          <h3>Infostep</h3>
+          <p>Internal app for Dexa Group employees to review marketing activities for Dexa Group products.</p>
+          <div class="tags"><span class="tag solid">Mobile</span><span class="tag">Internal tool</span></div>
         </div>
-    </section>
-    <script src="./main.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Work<br>experience</h2>
+      <p>From Flutter developer to software engineer and presales.</p>
+    </div>
+    <div class="xp">
+      <div class="xp-row">
+        <div class="yr">2023 — NOW</div>
+        <div><div class="role">Software Engineer</div><div class="where">PT MSBU Konsultan Indonesia · placed at Lembaga Penjamin Simpanan</div></div>
+        <span class="badge">Current</span>
+      </div>
+      <div class="xp-row">
+        <div class="yr">2023 · 7 MO</div>
+        <div><div class="role">Presales Engineer</div><div class="where">PT Indopoleon Technology</div></div>
+        <span class="badge">Presales</span>
+      </div>
+      <div class="xp-row">
+        <div class="yr">2022 — 2023</div>
+        <div><div class="role">Software Engineer</div><div class="where">PT Mitra Integrasi Informatika · placed at PT Dexa Medica</div></div>
+        <span class="badge">Pharma</span>
+      </div>
+      <div class="xp-row">
+        <div class="yr">2021 — 2022</div>
+        <div><div class="role">Mobile Developer (Flutter)</div><div class="where">Maimaid.id</div></div>
+        <span class="badge">Startup</span>
+      </div>
+      <div class="xp-row">
+        <div class="yr">2019 — 2021</div>
+        <div><div class="role">Mobile Developer (Flutter)</div><div class="where">PT Qtasnim Digital Teknologi · placed at PT Bukit Asam Tbk.</div></div>
+        <span class="badge">Mining</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block inverse" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Let's<br>collaborate</h2>
+      <p>Got a project or a role in mind? Reach out through any of these.</p>
+    </div>
+    <div class="contact">
+      <div class="c-item">
+        <span class="k">Email</span>
+        <span class="v" id="email">fahrononasutra@gmail.com</span>
+        <div class="c-actions"><button class="c-btn" type="button" data-copy="email">Copy</button><a class="c-btn" href="mailto:fahrononasutra@gmail.com">Write</a></div>
+      </div>
+      <div class="c-item">
+        <span class="k">WhatsApp</span>
+        <span class="v" id="wa">0812 9619 9310</span>
+        <div class="c-actions"><button class="c-btn" type="button" data-copy="wa">Copy</button><a class="c-btn" href="https://wa.me/6281296199310" target="_blank" rel="noopener">Chat</a></div>
+      </div>
+      <div class="c-item">
+        <span class="k">GitHub</span>
+        <span class="v">github.com/fahronona</span>
+        <div class="c-actions"><a class="c-btn" href="https://github.com/fahronona" target="_blank" rel="noopener">Open ↗</a></div>
+      </div>
+      <div class="c-item">
+        <span class="k">LinkedIn</span>
+        <span class="v">in/fahron-1b8a48187</span>
+        <div class="c-actions"><a class="c-btn" href="https://www.linkedin.com/in/fahron-1b8a48187" target="_blank" rel="noopener">Open ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bigword"><div class="wrap">Fahron.</div></div>
+
+<footer>
+  <div class="wrap">
+    <span>■ Designed &amp; built by Fahron</span>
+    <span>© 2026</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.getAttribute('data-copy'));
+    var text = el.textContent.replace(/\s/g, btn.getAttribute('data-copy') === 'wa' ? '' : ' ').trim();
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  });
+});
+</script>
 </body>
-
 </html>
